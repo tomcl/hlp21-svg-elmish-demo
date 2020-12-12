@@ -111,3 +111,42 @@ That makes things a lot more pleasant. The new [Windows Terminal](https://github
 To reinstall the build environment (without changing project code) rerun `build.cmd` (Windows) or `build.sh` (Linux and MacOS). You may need first to
 run `build killzombies` to remove orphan processes that lock build files.
 
+## Information on SVG React Helpers for Elmish
+
+
+
+
+### Old-style Syntax
+
+you can use this, and even mix it with new-style syntax, but
+
+React virtual DOM elements are created in Elmish using F# helper functions of form:
+
+```
+elementName (props:IProp list) (children: ReactElement list)
+```
+
+They divide into SVG elements (that can be used as children of an `svg` element that creates an SVG canvas) and DOM elments 
+that correspond to HTML DOM elements. There are also some `void` elements:
+
+```
+voidElementName (props: IProp list)
+
+
+That deal with non-visible interaction and do NOT allow react element children.
+
+See [Fable standard react documentation](https://github.com/fable-compiler/fable-react/blob/master/src/Fable.React.Standard.fs) 
+for the list of SVG, DOM and Void React element helper functions. That file also indicates
+
+    "core-js": "^3.6.5",
+    "cross-zip": "^3.1.0",
+    "cross-zip-cli": "^1.0.0",
+
+### New-style Feliz Syntax
+
+The demo in this repo and your porject work will all use new-stle helper functions to create react virtual DOM. 
+The difference in syntax is that the new-style functions use a single list:
+
+```
+elementName (props: )
+

@@ -20,6 +20,7 @@ group Electron
 	nuget Fable.React  
 	nuget FSharp.Core  redirects:force
 	nuget Fulma
+	nuget Feliz
 
 group Testing
 	source https://api.nuget.org/v3/index.json

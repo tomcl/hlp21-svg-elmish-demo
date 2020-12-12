@@ -7,6 +7,9 @@
     open Browser
     open Elmish
     open Elmish.React
+
+    open Feliz
+
     type Coords =
         {
             X : float
@@ -176,7 +179,7 @@
                     }
             )
             |> ofList
-
+        
         svg [
                 Style 
                     [
