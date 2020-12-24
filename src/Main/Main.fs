@@ -50,7 +50,7 @@ module DevTools =
     let connectRemoteDevViaExtension: unit -> unit = import "connectViaExtension" "remotedev"
 
 
-electron.app.name <- "Issie"
+electron.app.name <- "Svgdemo"
 
 
 
@@ -76,7 +76,7 @@ let createMainWindow () =
             options.icon <- (U2.Case2 (path.join(staticDir(), "icon.ico")))
         //elif Api.``process``.platform = Base.Darwin then
             //options.icon <- (U2.Case2 (path.join(staticDir(), "icon.icns")))   (the icns icon does not work)
-        options.title <- "ISSIE"
+        options.title <- "SVGDEMO"
         options.webPreferences <-
             jsOptions<WebPreferences> <| fun o ->
                 o.nodeIntegration <- true
