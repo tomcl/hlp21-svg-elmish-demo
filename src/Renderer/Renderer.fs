@@ -9,19 +9,18 @@
     open Elmish.React
 
     
-
+    /// X,Y SVG coordinates
     type Coords =
         {
             X : float
             Y : float
         }
 
-
+    /// model type for a draggable circle
     type Circle =
         {
-            X : float
-            Y : float
-            Coords : Coords
+            Pos: Coords
+            LastMousePos : Coords
             IsDragging : bool
         }
 
@@ -36,25 +35,21 @@
 
 
     let init () =
+        let initPos = {X=0. ; Y=0.}
         [
             { 
-                X = 50.
-                Y = 50. 
-                Coords =
-                    {
-                        X = 0.
-                        Y = 0.
-                }
+                Pos={X = 50. ; Y = 50.}
+                LastMousePos = initPos
                 IsDragging = false
             }
             { 
-                X = 150.
-                Y = 150. 
-                Coords =
-                    {
-                        X = 0.
-                        Y = 0.
-                }
+                Pos ={X=150. ; Y=150.}
+                LastMousePos = initPos
+                IsDragging = false
+            }
+            { 
+                Pos ={X=100. ; Y=100.}
+                LastMousePos = initPos
                 IsDragging = false
             }
         ]
@@ -70,7 +65,7 @@
                     circle
                 else
                     { circle with
-                        Coords =
+                        LastMousePos =
                             {
                                 X = pageX
                                 Y = pageY
@@ -80,21 +75,22 @@
             )
             , Cmd.none
 
-        | Dragging (rank, pageX, pageY) ->
+        | Dragging (rank, mouseX, mouseY) ->
             currentModel
             |> List.mapi (fun index circle ->
                 if rank <> index then
                     circle
                 else
-                    let xDiff = circle.Coords.X - pageX
-                    let yDiff = circle.Coords.Y - pageY
+                    let xDiff = mouseX - circle.LastMousePos.X 
+                    let yDiff = mouseY - circle.LastMousePos.Y 
                     { circle with
-                        X = circle.X - xDiff
-                        Y = circle.Y - yDiff
-                        Coords =
-                            {
-                                X = pageX
-                                Y = pageY
+                        Pos = {
+                            X = circle.Pos.X + xDiff
+                            Y = circle.Pos.Y + yDiff
+                        }
+                        LastMousePos = {
+                            X = mouseX
+                            Y = mouseY
                             }
                     }
             )
@@ -112,7 +108,7 @@
             )
             , Cmd.none
 
-
+    /// inputs needed to render a circle
     type RenderCircleProps =
         {
             Circle : Circle
@@ -135,10 +131,10 @@
 
                 let color =
                     if props.Circle.IsDragging then
-                        "lightblue"
+                        "red" 
                     else
                         "grey"
-
+                printfn "Rendering %d as %s" props.Index color
                 circle
                     [ 
                         OnMouseUp (fun ev -> 
@@ -151,8 +147,8 @@
                             |> props.Dispatch
                             document.addEventListener("mousemove", handleMouseMove.current)
                         )
-                        Cx props.Circle.X
-                        Cy props.Circle.Y
+                        Cx props.Circle.Pos.X
+                        Cy props.Circle.Pos.Y
                         R 25.
                         SVGAttr.Fill color
                         SVGAttr.Stroke color
@@ -178,7 +174,7 @@
                         key = "circle-" + string index
                     }
             )
-            |> ofList
+           
         
         svg [
                 Style 
@@ -189,7 +185,7 @@
                         Margin "10px"
                     ]
             ]
-            [ circles ]
+            circles
 
 
     // App
