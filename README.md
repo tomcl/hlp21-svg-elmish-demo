@@ -137,16 +137,3 @@ That deal with non-visible interaction and do NOT allow react element children.
 
 See [Fable standard react documentation](https://github.com/fable-compiler/fable-react/blob/master/src/Fable.React.Standard.fs) 
 for the list of SVG, DOM and Void React element helper functions. That file also indicates
-
-    "core-js": "^3.6.5",
-    "cross-zip": "^3.1.0",
-    "cross-zip-cli": "^1.0.0",
-
-### New-style Feliz Syntax
-
-The demo in this repo and your porject work will all use new-stle helper functions to create react virtual DOM. 
-The difference in syntax is that the new-style functions use a single list:
-
-```
-elementName (props: )
-
