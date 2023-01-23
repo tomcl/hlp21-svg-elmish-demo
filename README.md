@@ -106,6 +106,63 @@ That makes things a lot more pleasant. The new [Windows Terminal](https://github
   * From time to time run `build killzombies` to terminate orphan node and dotnet processes which accumulate using this dev chain.
 
 
+### Development on macOS
+
+For Apple silicon Mac users, please use `x86_64` version of `dotnet` and `node` to build/run. There is a known [issue](https://github.com/fsprojects/FAKE/issues/2626) of running `dotnet fake build` with `dotnet` arm64 on Apple silicon.
+
+  Steps to install/use x86_64 `dotnet` and `node` on Apple silicon:
+
+  1. Install build essentials
+
+      ```bash
+      xcode-select --install
+      ```
+
+  2. Install [Homebrew](https://brew.sh), a package manager for macOS.
+
+      ```bash
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent. com/Homebrew/install/HEAD/install.sh)"
+      # follow "Next steps" instruction in the result of last command, something likes
+      # echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zprofile
+      ```
+
+  3. Install [asdf](https://asdf-vm.com), a version manager.
+
+      ```bash
+      brew install asdf
+      ```
+
+  4. Install [Rosetta 2](https://support.apple.com/en-gb/HT211861), an application compatibility layer, and x86_64 `dotnet`
+
+      ```bash
+      # Install Rosetta 2
+      softwareupdate --install-rosetta
+
+      # Switch to a x86_64 shell, you can replace zsh with the shell you use.
+      # Without this line, native version of dotnet will be installed
+      /usr/bin/arch -x86_64 /usr/bin/env zsh --login
+
+      # Install x86_64 dotnet
+      asdf plugin-add dotnet
+      asdf install dotnet 6.0.403
+      asdf global dotnet 6.0.403
+
+      # Install x86_64 node
+      asdf plugin-add nodejs
+      asdf install nodejs 16.18.1
+      asdf global nodejs 16.18.1
+
+      # Exit x86_64 shell
+      exit
+
+      # Verify dotnet version
+      dotnet --info
+
+      # Verify node version
+      node -v
+      node -p "process.arch"
+      ```
+
 ## Reinstalling Compiler and Libraries
 
 To reinstall the build environment (without changing project code) rerun `build.cmd` (Windows) or `build.sh` (Linux and MacOS). You may need first to
