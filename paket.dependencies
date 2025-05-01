@@ -1,4 +1,4 @@
-version 5.247.4
+version 7.1.5
 
 framework: auto-detect
 source https://api.nuget.org/v3/index.json
