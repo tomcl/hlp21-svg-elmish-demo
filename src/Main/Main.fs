@@ -81,6 +81,7 @@ let createMainWindow () =
         options.webPreferences <-
             jsOptions<WebPreferences> <| fun o ->
                 o.nodeIntegration <- true
+                o.contextIsolation <- false
                 o.enableRemoteModule <- true
 
     let window = electron.BrowserWindow.Create(options)
