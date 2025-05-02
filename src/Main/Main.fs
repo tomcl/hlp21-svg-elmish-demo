@@ -98,7 +98,7 @@ let createMainWindow () =
 
     if isDev then
         DevTools.installAllDevTools window
-        //DevTools.connectRemoteDevViaExtension()
+        DevTools.connectRemoteDevViaExtension()
 
         if debug then
             window.webContents.openDevTools()
