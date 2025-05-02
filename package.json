@@ -60,22 +60,25 @@
     "tippy.js": "^6.2.6"
   },
   "devDependencies": {
-    "bufferutil": "^4.0.1",
+    "bufferutil": "^4",
     "file-loader": "^3.0.1",
-    "electron-builder": "^22.7",
+    "electron-builder": "26.0.13",
     "electron-webpack": "^2.8.2",
-    "electron": "^9.1.0",
+    "electron": "35.2.0",
     "html-webpack-plugin": "^4.3.0",
     "loglevel": "^1.6.8",
-    "node-sass": "^6.0.1",
+    "nan": "2.18.0",
+    "node-gyp": "10.0.1",
+    "node-sass": "^7",
     "remotedev": "^0.2.9",
     "resolve-url-loader": "^3.1.1",
     "sass": "^1.26.10",
     "sass-loader": "^10.4.1",
     "url-loader": "^4.1.0",
-    "utf-8-validate": "^5.0.2",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.12"
+    "utf-8-validate": "^6.0.0",
+    "webpack": "^4",
+    "webpack-cli": "^3",
+    "webpack-dev-server": "^3"
   },
   "private": true
 }
