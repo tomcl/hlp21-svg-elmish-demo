@@ -24,9 +24,9 @@ let debug = false
 
 module DevTools =
     let private installDevTools (extensionRef: obj) (forceDownload: bool): JS.Promise<string> =
-        importDefault "electron-devtools-installer"
-    let private REACT_DEVELOPER_TOOLS: obj = import "REACT_DEVELOPER_TOOLS" "electron-devtools-installer"
-    let private REDUX_DEVTOOLS: obj = import "REDUX_DEVTOOLS" "electron-devtools-installer"
+        importDefault "electron-extension-installer"
+    let private REACT_DEVELOPER_TOOLS: obj = import "REACT_DEVELOPER_TOOLS" "electron-extension-installer"
+    let private REDUX_DEVTOOLS: obj = import "REDUX_DEVTOOLS" "electron-extension-installer"
 
     let private installDevTool extensionRef =
         promise {
@@ -47,7 +47,6 @@ module DevTools =
         main.Session.defaultSession.removeExtension("Redux DevTools")
         
 
-    let connectRemoteDevViaExtension: unit -> unit = import "connectViaExtension" "remotedev"
 
 
 electron.app.name <- "Svgdemo"
@@ -81,6 +80,7 @@ let createMainWindow () =
         options.webPreferences <-
             jsOptions<WebPreferences> <| fun o ->
                 o.nodeIntegration <- true
+                o.contextIsolation <- false
                 o.enableRemoteModule <- true
 
     let window = electron.BrowserWindow.Create(options)
@@ -97,7 +97,6 @@ let createMainWindow () =
 
     if isDev then
         DevTools.installAllDevTools window
-        //DevTools.connectRemoteDevViaExtension()
 
         if debug then
             window.webContents.openDevTools()

@@ -7,6 +7,7 @@
     open Browser
     open Elmish
     open Elmish.React
+    open Elmish.Debug
 
     
     /// X,Y SVG coordinates
@@ -191,5 +192,6 @@
     // App
     Program.mkProgram init update view
     |> Program.withReactSynchronous "app"
+    |> Program.withDebugger
     |> Program.run
 

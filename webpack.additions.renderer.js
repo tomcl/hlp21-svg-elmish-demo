@@ -8,6 +8,7 @@ function resolve(filePath) {
 
 
 module.exports = {
+    devtool: 'cheap-module-source-map',
     entry: [resolve("src/Renderer/Renderer.fs.js"), resolve("src/Renderer/scss/main.scss"), resolve('static/index.html')],
     resolve: {
         modules: ['node_modules', resolve('/../app/node_modules'), resolve('resources/app/node_modules')]
